@@ -22,15 +22,14 @@
 
 const PROJECTS = [
   {
-    name: "项目1 名称",
-    description: "这里写项目介绍：做什么、解决什么问题、用了哪些技术、你在其中的角色和成果。2~3 句即可。",
-    image: "assets/images/project1.png",
-    // video: { src: "assets/videos/project1.mp4", type: "video/mp4" },
-    tags: ["Python", "FastAPI", "示例标签"],
+    name: "FlowForge — 企业级 AI 工作流编排平台",
+    description: "前后端 + 官网一体化的企业级 AI 平台。支持可视化画布编排、多模型接入、提示词模板管理、AI 测试台（Playground / LLM-as-Judge 自动评分 / 回归测试 / 漂移监控）、智能体配置、知识库向量检索，并配套官方展示网站。采用 Docker 编排部署，含数据库自动备份与灾备。",
+    image: "",
+    video: "https://player.bilibili.com/player.html?bvid=BV1HG4Z6eEE5&page=1&high_quality=1",
+    tags: ["FastAPI", "Vue 3", "TypeScript", "PostgreSQL", "Next.js", "Docker", "Milvus"],
     links: {
-      github: "https://github.com/你的用户名/项目1",
-      site: "https://你的在线地址.com",
-      // video: "https://www.bilibili.com/video/xxxxx"
+      site: "https://www.iflowforge.com/",
+      video: "https://www.bilibili.com/video/BV1HG4Z6eEE5/"
     }
   },
   {

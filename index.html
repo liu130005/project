@@ -36,7 +36,11 @@
       card.className = 'card';
 
       let media = '';
-      if (p.video && p.video.src) {
+      if (typeof p.video === 'string') {
+        // 外链视频（如 B站 iframe 地址）
+        media = `<iframe class="media media-iframe" src="${p.video}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>`;
+      } else if (p.video && p.video.src) {
+        // 本地视频文件
         media = `
           <video class="media" controls preload="metadata" poster="${p.image || ''}">
             <source src="${p.video.src}" type="${p.video.type}" />
