@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>我的项目</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <span class="brand">我的项目</span>
+    </div>
+  </header>
+
+  <main id="projects" class="container">
+    <h2 class="section-title">项目列表</h2>
+    <div id="project-list" class="grid">
+      <!-- 由 projects.js 渲染 -->
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span></p>
+    </div>
+  </footer>
+
+  <script src="assets/js/projects.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const list = document.getElementById('project-list');
+    PROJECTS.forEach((p, i) => {
+      const card = document.createElement('article');
+      card.className = 'card';
+
+      let media = '';
+      if (p.video && p.video.src) {
+        media = `
+          <video class="media" controls preload="metadata" poster="${p.image || ''}">
+            <source src="${p.video.src}" type="${p.video.type}" />
+            你的浏览器不支持 video 标签，请下载查看：<a href="${p.video.src}">视频文件</a>
+          </video>`;
+      } else if (p.image) {
+        media = `<img class="media" src="${p.image}" alt="${p.name} 截图" />`;
+      } else {
+        media = `<div class="media media-placeholder">暂无预览</div>`;
+      }
+
+      let links = '';
+      if (p.links) {
+        if (p.links.github) links += `<a class="btn btn-ghost" href="${p.links.github}" target="_blank" rel="noopener">GitHub</a>`;
+        if (p.links.site)   links += `<a class="btn btn-ghost" href="${p.links.site}" target="_blank" rel="noopener">在线地址</a>`;
+        if (p.links.video)  links += `<a class="btn btn-ghost" href="${p.links.video}" target="_blank" rel="noopener">视频</a>`;
+      }
+
+      let tags = '';
+      if (p.tags) {
+        tags = `<div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`;
+      }
+
+      card.innerHTML = `
+        <div class="media-wrap">${media}</div>
+        <div class="card-body">
+          <h3>${i + 1}. ${p.name}</h3>
+          <p class="desc">${p.description}</p>
+          ${tags}
+          <div class="card-links">${links}</div>
+        </div>`;
+      list.appendChild(card);
+    });
+  </script>
+</body>
+</html>
