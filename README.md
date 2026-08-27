@@ -1,104 +1,120 @@
-# 我的项目作品集
+# FlowForge — 企业级 AI 工作流编排平台
 
-> 这是我的个人项目展示仓库，用于面试和求职展示。
+> 一个从零开发的**前后端 + 官网一体化企业级 AI 平台**，用于项目展示与面试介绍。
 
-## 🌐 在线展示页
-
-- 访问地址：**[https://你的用户名.github.io/仓库名](https://你的用户名.github.io/仓库名)**（用 GitHub Pages 部署后生效）
-
----
-
-## 📂 项目列表
-
-| # | 项目 | 简介 | 在线地址 | 视频 |
-|---|------|------|----------|------|
-| 1 | **FlowForge — 企业级 AI 工作流编排平台** | 前后端 + 官网一体化的 AI 平台 | [iflowforge.com](https://www.iflowforge.com/) | [B站演示](https://www.bilibili.com/video/BV1HG4Z6eEE5/) |
-| 2 | 项目2 名称 | 一句话简介 | — | — |
-| 3 | 项目3 名称 | 一句话简介 | — | — |
-| 4 | 项目4 名称 | 一句话简介 | — | — |
-| 5 | 项目5 名称 | 一句话简介 | — | — |
-
----
-
-## ⭐ 重点项目：FlowForge — 企业级 AI 工作流编排平台
-
-企业级 AI 工作流编排平台，覆盖**后端服务、前端画布、官方展示网站**一体化开发。
-
-### 功能特性
-
-- **可视化工作流画布**：拖拽编排 AI 工作流，节点连线式配置。
-- **提示词模板管理**：集中管理与版本化提示词。
-- **AI 测试台**：Playground 调试、LLM-as-Judge 自动评分、回归测试、漂移监控。
-- **智能体配置**：可配置的智能体执行器。
-- **知识库向量检索**：基于 Milvus 的向量检索能力。
-- **插件系统**：可扩展的插件式架构。
-- **Docker 编排部署**：含数据库自动备份与灾备、资源限制、健康检查、日志轮转。
-
-### 技术栈
-
-| 层 | 技术 |
-|----|------|
-| 后端 | Python 3.12、FastAPI、SQLAlchemy (async)、PostgreSQL 15、Alembic、Milvus |
-| 前端 | Vue 3、TypeScript、Vite、Vue Flow、Pinia、Chart.js |
-| 官网 | Next.js 16、React 19、Tailwind CSS 4、framer-motion |
-| 部署 | Docker Compose（postgres / app / frontend / 定时备份） |
-
-### 相关链接
+## 🌐 相关链接
 
 - 官网：<https://www.iflowforge.com/>
-- 演示视频：[B站](https://www.bilibili.com/video/BV1HG4Z6eEE5/)
+- 演示视频：[B站观看](https://www.bilibili.com/video/BV1HG4Z6eEE5/)
 
 ---
 
-## 🛠️ 技术栈汇总
+## 📌 项目简介
 
-- Python / FastAPI / SQLAlchemy / PostgreSQL / Milvus
-- Vue 3 / TypeScript / Vite / Vue Flow
-- Next.js / React / Tailwind CSS
-- Docker / Docker Compose
+FlowForge 是一个企业级 AI 工作流编排平台，支持通过**可视化画布**以节点连线方式编排 AI 工作流，覆盖从模型接入、提示词管理、知识库检索，到 AI 测试评估、智能体对话、插件扩展的完整链路。项目包含三个子系统：
 
----
-
-## 📄 使用说明
-
-1. **填写项目信息**：编辑 `assets/js/projects.js`，把各项目的名称、介绍、截图、视频、外链填好。
-2. **放素材**：
-   - 截图放入 `assets/images/`
-   - 本地视频放入 `assets/videos/`（注意 GitHub 单文件 < 100MB）
-3. **本地预览**：直接用浏览器打开 `index.html`，或运行 `python -m http.server` 后访问。
-4. **部署到 GitHub Pages**（见下文）。
+| 子系统 | 技术 | 说明 |
+|--------|------|------|
+| 后端服务 `backend-workflow` | Python 3.12 + FastAPI | 业务逻辑、插件执行、AI 评估、知识库 |
+| 前端应用 `frontend-workflow` | Vue 3 + TypeScript | 可视化画布、各功能页面 |
+| 官方网站 `website` | Next.js 16 | 产品官网与展示 |
 
 ---
 
-## 🚀 部署到 GitHub Pages（免费在线访问）
+## ✨ 核心功能模块
 
-1. 在 GitHub 新建一个仓库（公开），比如 `my-portfolio`。
-2. 把本目录所有文件推上去：
+### 1. 可视化工作流编排
+- 基于 **Vue Flow** 的画布，拖拽节点、连线编排 AI 工作流。
+- 工作流支持**配置版本管理**（`versions.py`）、**定时调度**（`schedule.py`）、**执行监控**（`monitor.py`）。
+- 工作流执行可**追溯**（`traces.py`），支持查看每次运行的完整轨迹。
 
-```bash
-git init
-git add .
-git commit -m "init: 项目作品集"
-git remote add origin https://github.com/你的用户名/my-portfolio.git
-git push -u origin main
+### 2. 模型与提示词管理
+- 多模型服务商接入与统一管理（`api_keys.py`、`models.py`），支持密钥集中托管。
+- 提示词模板集中管理与版本化（`prompts.py`、`templates.py`、`versions.py`）。
+- 场景化提示词配置（`scenes.py`）。
+
+### 3. AI 测试台（重点）
+提供完整的 AI 应用质量评估体系（`routers/ai_test/`）：
+- **Playground 在线调试**：`AiTestPlayground.vue`，实时调试提示词与模型输出。
+- **测试用例管理**（`cases.py`）：用例维护、批量运行。
+- **测试数据集**（`datasets.py`）：管理批量测试数据。
+- **LLM-as-Judge 自动评分**（`evaluation.py`）：用大模型对输出按 1-5 分打分并生成评语。
+- **回归测试**（`TestRunner.vue`、`ExperimentView.vue`）：测试套件批量回归，防止效果回退。
+- **漂移监控**（`monitor.py`、`MonitorDashboard.vue`）：监控评分 / 成功率 / 延迟变化趋势。
+
+### 4. 智能体（Agent）
+- 智能体配置与编辑（`AgentEditor.vue`、`AgentList.vue`）。
+- 智能体对话（`AgentChat.vue`、`ChatView.vue`），支持人工任务（`human.py`、`HumanTaskList.vue`）。
+
+### 5. 知识库（Knowledge Base）
+- 知识库全生命周期管理：创建向导、文档管理、分块管理（`KnowledgeBaseCreateWizard.vue`、`doc_crud.py`、`chunk_crud.py`）。
+- 向量检索与召回测试（`KnowledgeBaseRetrievalTest.vue`、`KnowledgeRecallTest.vue`）。
+- 知识库效果评估（`eval.py`）、流水线测试（`KnowledgeBasePipelineTest.vue`）。
+
+### 6. 插件系统
+插件式可扩展架构（`app/plugins/plugin_packages/`），内置多个行业插件包，每包含多个可视化节点：
+
+- **图像处理（image）**：背景移除、批量处理、拼图、色彩匹配、图像对比、压缩、内容审核、去重、缺陷检测、细节增强、画质增强、OCR、预览、文字检测、文字擦除渲染、文字翻译、图像翻译、**AI 试穿**、水印添加/去除 等 20 类节点。
+- **视频处理（video_processor）**：视频压缩、水印、字幕等处理节点。
+- **电商（ecommerce）**：商品主图/详情图等场景化节点（含标签工具 `label_utils.py`）。
+- **音频（audio）**：音频处理节点。
+- **RPA**：自动化流程节点。
+
+### 7. 运维与安全
+- **Docker Compose 编排部署**：postgres / app / frontend / 定时备份容器。
+- 数据库**自动备份与灾备**、资源限制、健康检查、日志轮转。
+- **审计日志**（`audit.py`、`AuditLogList.vue`）：关键操作全程留痕。
+- **护栏（Guardrails）**（`guardrails.py`、`GuardrailSettings.vue`）：模型输出安全与合规。
+- **自定义工具**（`custom_tools.py`、`tools.py`、`ToolManagement.vue`）：扩展模型工具能力。
+- 数据看板（`Dashboard.vue`、`dashboard_enhanced.py`）、模型服务商配置、API 密钥管理。
+
+---
+
+## 🛠️ 技术栈详解
+
+| 层 | 技术 | 用途 |
+|----|------|------|
+| 后端框架 | Python 3.12、FastAPI | 异步 REST API |
+| ORM/数据库 | SQLAlchemy (async)、PostgreSQL 15、Alembic | 数据建模、迁移 |
+| 向量库 | Milvus | 知识库向量检索 |
+| 前端框架 | Vue 3、TypeScript、Vite | 单页应用 |
+| 可视化画布 | Vue Flow | 工作流拖拽编排 |
+| 状态管理 | Pinia | 前端状态 |
+| 图表 | Chart.js | 看板与监控图表 |
+| 官网 | Next.js 16、React 19、Tailwind CSS 4、framer-motion | 产品官网 |
+| 部署 | Docker、Docker Compose | 容器化编排与灾备 |
+
+---
+
+## 🏗️ 代码结构（后端核心）
+
+```
+backend-workflow/app/
+├── routers/              # API 路由
+│   ├── ai_test/          # AI 测试台（用例/数据集/评估/实验/监控）
+│   ├── knowledge_base/   # 知识库（文档/分块/评估）
+│   ├── workflows/        # 工作流（增删改查/执行/监控）
+│   ├── agents/           # 智能体
+│   ├── nodes/            # 节点
+│   └── ...               # 提示词/模板/模型/密钥/审计/护栏等
+└── plugins/
+    └── plugin_packages/  # 插件包
+        ├── image/        # 图像处理 20 类节点
+        ├── video_processor/ # 视频处理节点
+        ├── ecommerce/    # 电商节点
+        ├── audio/        # 音频节点
+        └── rpa/          # RPA 节点
 ```
 
-3. 仓库页面 → **Settings** → **Pages** → Source 选 `main` 分支 + 根目录（`/(root)`）→ Save。
-4. 等 1~2 分钟，访问 `https://你的用户名.github.io/my-portfolio/` 即可。
+---
 
-> 小技巧：把仓库名命名为 `你的用户名.github.io`，则访问地址就是 `https://你的用户名.github.io/`，更简洁。
+## 🎯 项目亮点（面试可讲）
+
+1. **全栈自研**：后端、前端画布、官网三端从零开发，体现完整产品思维。
+2. **AI 质量评估体系**：不止是接入模型，还做了 LLM-as-Judge 自动评分、回归测试、漂移监控，是工程化的关键加分点。
+3. **插件化架构**：通过插件包 + 节点机制扩展能力，新增图像/视频/电商/RPA 等场景无需改核心，体现良好的可扩展性设计。
+4. **可视化低代码**：Vue Flow 画布 + 节点编排，降低 AI 应用使用门槛。
+5. **工程化运维**：Docker 编排、自动备份灾备、审计日志、护栏，接近生产级标准。
 
 ---
 
-## ⚠️ 视频与文件大小注意
-
-- GitHub 单文件上限 **100MB**，单仓库建议低于 1~2GB。
-- 视频优先放 B站等线上平台，在 `projects.js` 用外链/嵌入，避免撑爆仓库。
-- 若用本地视频，请先用 ffmpeg 压缩，例如：`ffmpeg -i 原视频 -crf 28 -preset slow 输出.mp4`。
-
----
-
-## 📬 联系我
-
-- 邮箱：你的邮箱
-- GitHub：[你的 GitHub 主页](https://github.com/你的用户名)
