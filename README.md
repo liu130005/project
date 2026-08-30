@@ -6,8 +6,9 @@
 
 | # | 项目 | 一句话简介 | 链接 |
 |---|------|-----------|------|
-| 1 | [FlowForge](#flowforge--企业级-ai-工作流编排平台) | 企业级 AI 工作流编排平台（前后端+官网） | [官网](https://www.iflowforge.com/) · [B站演示](https://www.bilibili.com/video/BV1HG4Z6eEE5/) |
-| 2 | [Aide](#aide--智能编程助手vs-code-扩展) | 从零开发的 VS Code AI 编程助手 | [B站演示](https://www.bilibili.com/video/BV1pZts6mEaq/) |
+| 1 | [FlowForge](#一flowforge--企业级-ai-工作流编排平台) | 企业级 AI 工作流编排平台（前后端+官网） | [官网](https://www.iflowforge.com/) · [B站演示](https://www.bilibili.com/video/BV1HG4Z6eEE5/) |
+| 2 | [Aide](#二aide--智能编程助手vs-code-扩展) | 从零开发的 VS Code AI 编程助手 | [B站演示](https://www.bilibili.com/video/BV1pZts6mEaq/) |
+| 3 | [Agent落地场景](#三agent落地场景) | Agent 业务场景全景图（6 大分类 20+ 场景） | [查看页面](agent落地.html) |
 
 ---
 
@@ -186,9 +187,37 @@ backend-workflow/app/
 
 ---
 
-# 三、如何查看本作品集
+# 三、Agent落地场景
 
-本仓库的**在线展示页**是 `index.html`，包含两个项目的可视化卡片（内嵌 B站演示视频 + 官网链接）。
+> 一个独立的可视化展示页：把分散的 AI 工具组合成可执行、可复用的数字员工能力。
+
+本页是一张 **Agent 业务场景全景图**，将 AI Agent 按业务场景分类展示，共 **6 大分类、20+ 个 Agent 场景**，每个场景标注了具体的 Skill 能力项。
+
+## 🌐 相关链接
+
+- 查看页面：**[agent落地.html](agent落地.html)**（双击或起本地服务器打开）
+
+## 📂 六大分类
+
+| 分类 | 代表 Agent | Skill 能力示例 |
+|------|-----------|----------------|
+| **A. 电商与内容营销** | 电商运营、小红书分析、直播运营、IP种草带货、商务专员 | 商品标题优化、详情页生成、竞品分析、热点挖掘、直播脚本、达人合作 |
+| **B. 跨境电商** | 选品、达人合作、内容研究、KOL 自动化运营 | TikTok/亚马逊选品、达人筛选、本地化文案、自动批量建联 |
+| **C. 市场增长与产品创新** | 市场调研、产品创新、新品概念验证、市场营销 | 行业报告解读、需求文档、概念测试、营销方案 |
+| **D. 客服与财务风控** | 售后客服、财务审批复核 | 客诉分类、智能工单、发票真伪查验、预算监控 |
+| **E. 经营管理与办公提效** | 负责人助理、周报月报、个人助理、调研、办公协同、文档处理 | 会议纪要、工作数据汇总、信息检索、多格式转换 |
+| **F. 视觉设计与内容生产** | 品牌 VI 规范、视觉美化、HTML 视觉设计大师 | 品牌视觉规范、海报设计、PPT 美化、H5 活动页 |
+
+## 🎯 价值点（面试可讲）
+
+- 体现对 **AI Agent 业务落地**的理解：把技术能力映射到真实业务场景。
+- 每个 Agent 都拆解为**具体的 Skill 能力**，展示工程化、场景化的产品设计思维。
+
+---
+
+# 四、如何查看本作品集
+
+本仓库的**在线展示页**是 `index.html`，包含各项目的可视化卡片（内嵌 B站演示视频 + 官网链接），另有独立的 `agent落地.html` 场景全景图。
 
 ## 本地预览
 
@@ -204,25 +233,5 @@ python -m http.server 8000
 ```
 
 > 说明：因为页面内嵌了 B站视频（iframe），通过 `file://` 直接双击打开也基本可用；但如果嵌入受限或显示异常，建议用方式二起本地服务器访问。
-
-## 在线访问（GitHub Pages）
-
-1. 新建公开仓库并推送本目录：
-```bash
-git init
-git add .
-git commit -m "init: 项目作品集"
-git remote add origin https://github.com/你的用户名/仓库名.git
-git push -u origin main
-```
-2. 仓库 → **Settings** → **Pages** → Source 选 `main` 分支根目录 → Save。
-3. 访问 `https://你的用户名.github.io/仓库名/`。
-
----
-
-## 📬 联系我
-
-- 邮箱：你的邮箱
-- GitHub：[你的 GitHub 主页](https://github.com/你的用户名)
 
 
