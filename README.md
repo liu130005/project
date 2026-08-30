@@ -1,6 +1,19 @@
-# FlowForge — 企业级 AI 工作流编排平台
+# 我的项目作品集
 
-> 一个从零开发的**前后端 + 官网一体化企业级 AI 平台**，用于项目展示与面试介绍。
+> 个人项目展示仓库，用于面试与求职介绍。
+
+## 📂 项目总览
+
+| # | 项目 | 一句话简介 | 链接 |
+|---|------|-----------|------|
+| 1 | [FlowForge](#flowforge--企业级-ai-工作流编排平台) | 企业级 AI 工作流编排平台（前后端+官网） | [官网](https://www.iflowforge.com/) · [B站演示](https://www.bilibili.com/video/BV1HG4Z6eEE5/) |
+| 2 | [Aide](#aide--智能编程助手vs-code-扩展) | 从零开发的 VS Code AI 编程助手 | [B站演示](https://www.bilibili.com/video/BV1pZts6mEaq/) |
+
+---
+
+# 一、FlowForge — 企业级 AI 工作流编排平台
+
+> 一个从零开发的**前后端 + 官网一体化企业级 AI 平台**。
 
 ## 🌐 相关链接
 
@@ -107,5 +120,109 @@ backend-workflow/app/
 ```
 
 ---
+
+# 二、Aide — 智能编程助手（VS Code 扩展）
+
+> 从零开发的 VS Code AI 编程助手，对标 Cline / GitHub Copilot 类产品。
+
+## 🌐 相关链接
+
+- 演示视频：[B站观看](https://www.bilibili.com/video/BV1pZts6mEaq/)
+
+## 📌 项目简介
+
+一个**从零开发的 VS Code AI 编程助手扩展**，核心能力包括智能对话、代码补全、代码解释、重构、Diff 预览、代码审查，以及一套完整的 **Agent 自主执行体系**。
+
+## 1. 多模型接入（provider 架构）
+
+内置 8 种模型供应商，统一通过 OpenAI 兼容协议封装：
+
+| Provider | 默认模型 | 说明 |
+|----------|----------|------|
+| OpenAI | gpt-4o | 支持自定义代理 baseUrl |
+| DeepSeek | deepseek-chat | 默认模型 |
+| Gemini | gemini-2.0-flash | Google |
+| Qwen | qwen-plus | 通义千问 DashScope |
+| Ollama | codellama | 本地模型 |
+| OpenRouter | openai/gpt-4o | 聚合平台 |
+| OpenAI 兼容 | gpt-4o | 自定义 baseUrl，可接任意服务 |
+| VS Code LM | — | 由 VS Code 提供 |
+
+工程亮点：
+- **密钥安全**：API Key 默认写入 VS Code 加密的 Secret Storage，支持自动迁移，废弃明文存储。
+- **provider 标识归一化**：统一连字符/驼峰/下划线拼写，用 enum 单一数据源杜绝拼写漂移。
+- **参数体系**：per-model 参数覆盖、模型降级回退、速率限制（RPM）、流式响应 + function calling。
+
+## 2. Agent 自主执行体系（`src/agent/`，24 个模块）
+
+- **Plan / Act 双模式**：规划只读，执行落盘。
+- **工具系统**：文件读写、编辑器替换/插入、终端命令、补丁应用、AST 上下文增强、命令输出智能截断。
+- **权限管理**：`auto / acceptEdits / default` 三档权限，只读自动放行、写/命令弹卡确认。
+- **多 Agent 协作**：真实并行派发只读研究子代理，含并发上限与超时，仅允许查询不落盘。
+- **上下文管理**：128k 上下文窗口、自动压缩、增量压缩 continuation。
+- **代码库理解**：代码库索引 + AST 语义搜索。
+- **浏览器自动化**（Puppeteer）、**MCP 客户端**（自定义 MCP Server）、**网络搜索**（多后端 + 兜底）。
+- **工程化机制**：Checkpoint、死循环守护、生命周期 Hooks、项目规则、技能系统、token 计数、终端管理。
+- **安全防护**：路径校验、危险命令检查、工作区 hooks 默认关闭防供应链攻击。
+
+## 3. 功能命令（40+ 命令）
+
+覆盖开发全流程：对话、解释代码、生成代码、代码审查、生成测试、重构、生成注释、Diff 对比、内联对话、Agent 规划/执行/停止、Checkpoint、Token 用量、费用仪表盘、Git 集成（commit / PR 描述 / 建分支）、提示词模板库、Linter 修复、运行测试、多 Agent 分解任务、自定义指令、Hooks、任务历史等。
+
+## 4. 前端界面（`webview/`，Vue 3）
+
+45 个 `.vue` 组件，技术栈：Vue 3 + TypeScript + Vite + naive-ui + markdown-it + TipTap。含对话面板、Agent 步骤视图、Diff 编辑器、费用看板、上下文窗口监控，支持右键菜单与快捷键（`Ctrl+Shift+A`）。
+
+## 5. 工程与质量
+
+- 测试：`src/test/` 26 个测试文件，用 Vitest（含 coverage、UI 模式）。
+- 技术栈：TypeScript、tree-sitter（语法解析）、ESLint。
+
+## 🎯 项目亮点（面试可讲）
+
+1. **全栈自研 AI 编程助手**：从多模型接入到 Agent 自主执行、从工具系统到 Vue3 webview 界面，闭环完整。
+2. **工程化深度**：加密密钥、权限分级、上下文压缩、多 Agent 并行、死循环守护、供应链安全防护。
+3. **开放扩展**：MCP 支持、浏览器自动化、多搜索后端、Hooks 生命周期，架构灵活。
+
+---
+
+# 三、如何查看本作品集
+
+本仓库的**在线展示页**是 `index.html`，包含两个项目的可视化卡片（内嵌 B站演示视频 + 官网链接）。
+
+## 本地预览
+
+用浏览器直接打开根目录下的 **`index.html`** 即可查看：
+
+```bash
+# 方式一：直接双击项目根目录的 index.html
+# 或在项目根目录打开命令行执行：
+
+# 方式二：本地起一个静态服务器（推荐，B站 iframe 更稳定）
+python -m http.server 8000
+# 然后浏览器访问 http://localhost:8000
+```
+
+> 说明：因为页面内嵌了 B站视频（iframe），通过 `file://` 直接双击打开也基本可用；但如果嵌入受限或显示异常，建议用方式二起本地服务器访问。
+
+## 在线访问（GitHub Pages）
+
+1. 新建公开仓库并推送本目录：
+```bash
+git init
+git add .
+git commit -m "init: 项目作品集"
+git remote add origin https://github.com/你的用户名/仓库名.git
+git push -u origin main
+```
+2. 仓库 → **Settings** → **Pages** → Source 选 `main` 分支根目录 → Save。
+3. 访问 `https://你的用户名.github.io/仓库名/`。
+
+---
+
+## 📬 联系我
+
+- 邮箱：你的邮箱
+- GitHub：[你的 GitHub 主页](https://github.com/你的用户名)
 
 

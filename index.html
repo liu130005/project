@@ -47,7 +47,8 @@
             你的浏览器不支持 video 标签，请下载查看：<a href="${p.video.src}">视频文件</a>
           </video>`;
       } else if (p.image) {
-        media = `<img class="media" src="${p.image}" alt="${p.name} 截图" />`;
+        const placeholderHtml = `<div class="media media-placeholder">暂无预览</div>`;
+        media = `<img class="media" src="${p.image}" alt="${p.name} 截图" onerror="this.outerHTML = \`${placeholderHtml}\`" />`;
       } else {
         media = `<div class="media media-placeholder">暂无预览</div>`;
       }

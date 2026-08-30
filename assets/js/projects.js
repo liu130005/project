@@ -33,20 +33,20 @@ const PROJECTS = [
     }
   },
   {
-    name: "项目2 名称",
-    description: "这里写项目介绍。",
-    image: "assets/images/project2.png",
-    // video: { src: "assets/videos/project2.mp4", type: "video/mp4" },
-    tags: ["标签A", "标签B"],
+    name: "Aide — 智能编程助手（VS Code 扩展）",
+    description: "从零开发的 VS Code AI 编程助手，对标 Cline/Copilot。支持智能对话、代码补全/解释/重构、代码审查、Diff 预览，内置完整 Agent 自主执行体系（Plan/Act 双模式、多工具系统、权限分级、多 Agent 并行、浏览器自动化、MCP、代码库索引）。内置 8 种模型供应商（OpenAI/DeepSeek/Gemini/Qwen/Ollama 等），密钥加密存储，Vue 3 前端界面。",
+    image: "",
+    video: "https://player.bilibili.com/player.html?bvid=BV1pZts6mEaq&page=1&high_quality=1",
+    tags: ["TypeScript", "VS Code 扩展", "Agent", "LLM", "Vue 3", "tree-sitter"],
     links: {
-      github: "https://github.com/你的用户名/项目2",
-      site: ""
+      site: "",
+      video: "https://www.bilibili.com/video/BV1pZts6mEaq/"
     }
   },
   {
     name: "项目3 名称",
     description: "这里写项目介绍。",
-    image: "assets/images/project3.png",
+    // image: "assets/images/project3.png",
     tags: ["标签A", "标签B"],
     links: {
       github: "https://github.com/你的用户名/项目3"
@@ -55,7 +55,7 @@ const PROJECTS = [
   {
     name: "项目4 名称",
     description: "这里写项目介绍。",
-    image: "assets/images/project4.png",
+    // image: "assets/images/project4.png",
     tags: ["标签A", "标签B"],
     links: {
       github: "https://github.com/你的用户名/项目4"
@@ -64,7 +64,7 @@ const PROJECTS = [
   {
     name: "项目5 名称",
     description: "这里写项目介绍。",
-    image: "assets/images/project5.png",
+    // image: "assets/images/project5.png",
     tags: ["标签A", "标签B"],
     links: {
       github: "https://github.com/你的用户名/项目5"

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent落地场景</title>
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --card-bg: #ffffff;
+      --text: #1f2329;
+      --text-secondary: #4f5563;
+      --border: #e3e6eb;
+      --accent-a: #e8594a;
+      --accent-b: #f6a84c;
+      --accent-c: #4cb8a9;
+      --accent-d: #5b8def;
+      --accent-e: #9d7ad2;
+      --accent-f: #e86ca2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .flow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 24px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .flow .step {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .flow .arrow {
+      color: #b0b5bf;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .category {
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cat-letter {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .cat-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .agent {
+      margin-bottom: 18px;
+    }
+
+    .agent:last-child {
+      margin-bottom: 0;
+    }
+
+    .agent-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .agent-name::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.5;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: #f2f3f6;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      line-height: 1.4;
+    }
+
+    .accent-a .cat-letter { background: var(--accent-a); }
+    .accent-a .agent-name { color: #c94638; }
+    .accent-b .cat-letter { background: var(--accent-b); }
+    .accent-b .agent-name { color: #c98c35; }
+    .accent-c .cat-letter { background: var(--accent-c); }
+    .accent-c .agent-name { color: #3a9b8d; }
+    .accent-d .cat-letter { background: var(--accent-d); }
+    .accent-d .agent-name { color: #4a78d4; }
+    .accent-e .cat-letter { background: var(--accent-e); }
+    .accent-e .agent-name { color: #8363b8; }
+    .accent-f .cat-letter { background: var(--accent-f); }
+    .accent-f .agent-name { color: #c95688; }
+
+    .footer {
+      text-align: center;
+      margin-top: 32px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Agent落地场景</h1>
+      <p class="subtitle">把分散的 AI 工具组合成可执行、可复用的数字员工能力</p>
+      <div class="flow">
+        <span class="step">任务需求</span>
+        <span class="arrow">→</span>
+        <span class="step">Agent 理解与调度</span>
+        <span class="arrow">→</span>
+        <span class="step">Skill 专业执行</span>
+        <span class="arrow">→</span>
+        <span class="step">业务成果</span>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="category accent-a">
+        <div class="cat-header">
+          <div class="cat-letter">A</div>
+          <div class="cat-title">电商与内容营销</div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">电商运营 Agent</div>
+          <div class="skills">
+            <span class="skill">商品标题优化</span>
+            <span class="skill">商品详情页生成</span>
+            <span class="skill">竞品分析与定价</span>
+            <span class="skill">活动策划与执行</span>
+            <span class="skill">销售数据分析</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">小红书分析 Agent</div>
+          <div class="skills">
+            <span class="skill">热点话题挖掘</span>
+            <span class="skill">内容选题推荐</span>
+            <span class="skill">笔记文案生成</span>
+            <span class="skill">评论区舆情分析</span>
+            <span class="skill">KOL/KOC 筛选</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">直播运营 Agent</div>
+          <div class="skills">
+            <span class="skill">直播脚本生成</span>
+            <span class="skill">主播话术优化</span>
+            <span class="skill">实时弹幕互动</span>
+            <span class="skill">直播数据复盘</span>
+            <span class="skill">选品推荐</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">IP/电商种草带货 Agent</div>
+          <div class="skills">
+            <span class="skill">短视频脚本生成</span>
+            <span class="skill">种草文案撰写</span>
+            <span class="skill">达人合作方案</span>
+            <span class="skill">带货数据分析</span>
+            <span class="skill">私域社群运营</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">商务专员 Agent</div>
+          <div class="skills">
+            <span class="skill">商务合同初稿</span>
+            <span class="skill">供应商沟通</span>
+            <span class="skill">报价方案生成</span>
+            <span class="skill">合作洽谈记录</span>
+            <span class="skill">客户关系维护</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="category accent-b">
+        <div class="cat-header">
+          <div class="cat-letter">B</div>
+          <div class="cat-title">跨境电商</div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">跨境电商选品 Agent</div>
+          <div class="skills">
+            <span class="skill">TikTok 爆款选品分析</span>
+            <span class="skill">亚马逊趋势选品</span>
+            <span class="skill">独立站潜力选品</span>
+            <span class="skill">供应链成本核算</span>
+            <span class="skill">竞品定价策略</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">跨境电商达人合作 Agent</div>
+          <div class="skills">
+            <span class="skill">TikTok 达人筛选</span>
+            <span class="skill">YouTube 合作邀约</span>
+            <span class="skill">合作话术生成</span>
+            <span class="skill">达人数据评估</span>
+            <span class="skill">佣金方案设计</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">跨境电商内容研究 Agent</div>
+          <div class="skills">
+            <span class="skill">海外市场趋势</span>
+            <span class="skill">本地化文案</span>
+            <span class="skill">多语言 SEO</span>
+            <span class="skill">社媒内容策划</span>
+            <span class="skill">用户画像分析</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">跨境电商自动化运营 KOL 助手 Agent</div>
+          <div class="skills">
+            <span class="skill">自动批量建联</span>
+            <span class="skill">邮件跟进</span>
+            <span class="skill">合作进度管理</span>
+            <span class="skill">合同自动生成</span>
+            <span class="skill">KOL 内容发布追踪</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="category accent-c">
+        <div class="cat-header">
+          <div class="cat-letter">C</div>
+          <div class="cat-title">市场增长与产品创新</div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">市场调研 Agent</div>
+          <div class="skills">
+            <span class="skill">行业报告解读</span>
+            <span class="skill">竞品动态监控</span>
+            <span class="skill">用户需求洞察</span>
+            <span class="skill">市场规模测算</span>
+            <span class="skill">问卷设计分析</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">产品创新 Agent</div>
+          <div class="skills">
+            <span class="skill">产品需求文档</span>
+            <span class="skill">功能优先级排序</span>
+            <span class="skill">原型设计建议</span>
+            <span class="skill">用户反馈分析</span>
+            <span class="skill">迭代路线规划</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">新品概念验证 Agent</div>
+          <div class="skills">
+            <span class="skill">概念测试问卷</span>
+            <span class="skill">目标人群定位</span>
+            <span class="skill">卖点提炼</span>
+            <span class="skill">价格敏感度</span>
+            <span class="skill">上市策略建议</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">市场营销 Agent</div>
+          <div class="skills">
+            <span class="skill">营销方案策划</span>
+            <span class="skill">广告投放优化</span>
+            <span class="skill">品牌传播文案</span>
+            <span class="skill">渠道效果分析</span>
+            <span class="skill">增长实验设计</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="category accent-d">
+        <div class="cat-header">
+          <div class="cat-letter">D</div>
+          <div class="cat-title">客服与财务风控</div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">售后客服 Agent</div>
+          <div class="skills">
+            <span class="skill">客诉分类与优先级判断</span>
+            <span class="skill">智能工单生成</span>
+            <span class="skill">常见问题 FAQ 自动生成</span>
+            <span class="skill">售后处理建议</span>
+            <span class="skill">客户满意度回访</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">财务审批复核 Agent</div>
+          <div class="skills">
+            <span class="skill">报销单据初审</span>
+            <span class="skill">发票真伪查验</span>
+            <span class="skill">付款流程复核</span>
+            <span class="skill">预算执行监控</span>
+            <span class="skill">异常费用预警</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="category accent-e">
+        <div class="cat-header">
+          <div class="cat-letter">E</div>
+          <div class="cat-title">经营管理与办公提效</div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">负责人助理 Agent</div>
+          <div class="skills">
+            <span class="skill">待办事项整理</span>
+            <span class="skill">会议纪要生成</span>
+            <span class="skill">日程冲突管理</span>
+            <span class="skill">邮件摘要总结</span>
+            <span class="skill">重要信息推送</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">周报月报 10 分钟智能写 Agent</div>
+          <div class="skills">
+            <span class="skill">工作数据自动汇总</span>
+            <span class="skill">关键进展提炼</span>
+            <span class="skill">图文并茂排版</span>
+            <span class="skill">模板一键套用</span>
+            <span class="skill">多维度复盘建议</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">个人助理 Agent</div>
+          <div class="skills">
+            <span class="skill">每日待办提醒</span>
+            <span class="skill">信息检索整理</span>
+            <span class="skill">学习笔记归档</span>
+            <span class="skill">个性化知识库</span>
+            <span class="skill">智能问答</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">调研 Agent</div>
+          <div class="skills">
+            <span class="skill">多源信息搜集</span>
+            <span class="skill">深度调研报告</span>
+            <span class="skill">数据可视化</span>
+            <span class="skill">观点交叉验证</span>
+            <span class="skill">信息溯源</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">办公协同 Agent</div>
+          <div class="skills">
+            <span class="skill">跨部门任务跟进</span>
+            <span class="skill">会议议程生成</span>
+            <span class="skill">决议事项督办</span>
+            <span class="skill">协作流程优化</span>
+            <span class="skill">文档集中管理</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">办公文档处理助手 Agent</div>
+          <div class="skills">
+            <span class="skill">PPT 大纲生成</span>
+            <span class="skill">Word 文档排版</span>
+            <span class="skill">Excel 公式辅助</span>
+            <span class="skill">PDF 信息提取</span>
+            <span class="skill">多格式转换</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="category accent-f">
+        <div class="cat-header">
+          <div class="cat-letter">F</div>
+          <div class="cat-title">视觉设计与内容生产</div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">品牌 VI 规范 Agent</div>
+          <div class="skills">
+            <span class="skill">品牌 VI 视觉 SKU</span>
+            <span class="skill">色彩规范生成</span>
+            <span class="skill">字体规范建议</span>
+            <span class="skill">延展物料设计</span>
+            <span class="skill">多场景应用规范</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">视觉美化 Agent</div>
+          <div class="skills">
+            <span class="skill">PPT 美化</span>
+            <span class="skill">海报设计</span>
+            <span class="skill">电商主图优化</span>
+            <span class="skill">图标设计</span>
+            <span class="skill">配图生成</span>
+          </div>
+        </div>
+        <div class="agent">
+          <div class="agent-name">HTML 视觉设计大师</div>
+          <div class="skills">
+            <span class="skill">HTML 页面设计</span>
+            <span class="skill">长尾页</span>
+            <span class="skill">主视觉</span>
+            <span class="skill">产品详情页</span>
+            <span class="skill">H5 活动页</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Agent 就是一个一个的专家</p>
+    </div>
+  </div>
+</body>
+</html>
