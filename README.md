@@ -8,7 +8,8 @@
 |---|------|-----------|------|
 | 1 | [FlowForge](#一flowforge--企业级-ai-工作流编排平台) | 企业级 AI 工作流编排平台（前后端+官网） | [官网](https://www.iflowforge.com/) · [B站演示](https://www.bilibili.com/video/BV1HG4Z6eEE5/) |
 | 2 | [Aide](#二aide--智能编程助手vs-code-扩展) | 从零开发的 VS Code AI 编程助手 | [B站演示](https://www.bilibili.com/video/BV1pZts6mEaq/) |
-| 3 | [Agent落地场景](#三agent落地场景) | Agent 业务场景全景图（6 大分类 20+ 场景） | [查看页面](agent落地.html) |
+| 3 | [LuxClaw](#三luxclaw--ai-agent-桌面应用) | Electron + React 的 AI Agent 桌面应用 + 多媒体创作 | [B站演示](https://www.bilibili.com/video/BV1XSb56TEpy/) |
+| 4 | [Agent落地场景](#四agent落地场景) | Agent 业务场景全景图（6 大分类 20+ 场景） | [查看页面](agent落地.html) |
 
 ---
 
@@ -187,7 +188,76 @@ backend-workflow/app/
 
 ---
 
-# 三、Agent落地场景
+# 三、LuxClaw — AI Agent 桌面应用
+
+> 基于 **Electron + React** 的 AI Agent 桌面应用，将智能体对话与多媒体 AI 创作能力合而为一。
+
+## 🌐 相关链接
+
+- 演示视频：[B站观看](https://www.bilibili.com/video/BV1XSb56TEpy/)
+
+## 📌 项目简介
+
+一个桌面级 AI Agent 应用（`productName: LuxClaw`，`description: AI Agent Desktop Application`）。主进程承载完整的 Agent 自主执行引擎，渲染进程提供丰富的 AI 能力面板与对话界面，内置 Playwright 浏览器自动化与 RPA 发布能力。
+
+## 1. Agent 引擎（`src/main/agent/`，25 个模块）
+
+- **多模型接入**（`llm.ts`）：OpenAI 兼容协议，支持多模型配置（`media.ts` 中 `listModelConfigs`），原生 function calling 工具调用。
+- **可靠调用**：带**多级指数退避重试**（`callWithRetry`，最多 3 次，仅在无输出时重试，避免流式重复）、流式响应。
+- **上下文管理**（`contextManager.ts`）：128k 上下文窗口、超阈值自动压缩（`compressSession`）。
+- **技能系统**（`skills.ts`）：技能创建/发现/激活（`create_skill` / `list_skills` / `use_skill`），技能独立存放于 `userData/skills`。
+- **记忆管理**（`memory.ts`）：会话长期记忆。
+- **附件与引用**（`attachments.ts`、`references.ts`）：附件解析、文档引用解析。
+- **成本追踪**（`costTracker.ts`）：API 请求计费与 Token 统计（`recordApiRequest`）。
+- **工具系统**（`tools.ts`）：完整工具集——`list_dir`/`read_file`/`write_file`/`edit_file`/`search_content`/`execute_command`/`web_fetch`/`web_search`/`use_skill`/`ask_user`/`todo_write`/`report_findings`/`task_start`/`task_stop`/`create_skill`/`list_skills`/`delegate_task`（任务委派）/`mcp_list_tools`/`mcp_run` 等。
+- **安全与审批**（`permissions.ts`、`autoApprove.ts`）：风险操作需确认（`setRiskyApproved`），工作区边界限制（三态 `cwdState` 判定）。
+- **MCP 客户端**（`mcpClient.ts`）：接入外部 MCP Server。
+
+## 2. 任务与工作区
+
+- **会话管理**（`sessions.ts`）：多会话（Session）切换。
+- **任务历史**（`taskHistory.ts`）：任务执行留痕。
+- **审计**（`audit.ts`）：关键操作审计。
+- **数据库**（`db.ts`）：本地持久化（sql.js / SQLite）。
+- **终端命令**（`commands.ts`）、**Hooks**（`hooks.ts`）。
+
+## 3. 多媒体 AI 创作（`media.ts` + 渲染进程面板）
+
+主进程 `media.ts` 提供统一的多媒体任务调度（图片/视频/音频生成、字幕、图片解析、口型/商品运动等，见 `MediaGenerateRequest` 等类型），渲染进程有对应能力面板：
+
+| 面板 | 能力 |
+|------|------|
+| ImagePanel | 图像生成 |
+| VideoPanel | 视频生成 |
+| AudioPanel | 音频生成 |
+| ImageBgPanel | 图片背景处理 |
+| RetouchPanel | 图片修图 |
+| TryOnPanel | AI 试穿 |
+| VoiceClonePanel | 语音克隆 |
+| TranslatePanel | 翻译 |
+| MotionPanel | 图像/视频动效 |
+| AssetLibrary | 素材库管理 |
+
+## 4. RPA 发布（`src/main/rpa/`）
+
+- **浏览器自动化**（Playwright）。
+- **抖音发布**（`douyin.ts`）：素材库资源 → 临时文件 → 自动上传发布（`runPublish`），含临时文件清理。
+- 平台扩展架构：`SUPPORTED` 白名单控制，预留其它平台。
+
+## 5. 前端界面（React）
+
+React 18 + TypeScript + Tailwind + zustand 状态管理 + framer-motion 动效。含对话界面、ToolCallRow（工具调用过程可视化）、AgentComposer、模型配置、MCP 面板、多视图预览（MultiViewPanel）、工作流预览等。
+
+## 🎯 项目亮点（面试可讲）
+
+1. **桌面级 Agent 闭环**：Agent 引擎 + 多媒体生成 + RPA 发布 + 素材库，从"生成内容"到"自动发布"形成完整产品链路。
+2. **工程可靠性**：带退避的多级重试、上下文压缩、成本追踪、审计、工作区安全边界，考虑生产可用。
+3. **扩展性**：技能系统、MCP、任务委派、平台白名单式 RPA 架构，设计灵活。
+4. **技术广度**：Electron 主/渲染双进程、Playwright 自动化、多模态 AI、本地存储，横跨桌面开发与 AI 应用。
+
+---
+
+# 四、Agent落地场景
 
 > 一个独立的可视化展示页：把分散的 AI 工具组合成可执行、可复用的数字员工能力。
 
@@ -215,7 +285,7 @@ backend-workflow/app/
 
 ---
 
-# 四、如何查看本作品集
+# 五、如何查看本作品集
 
 本仓库的**在线展示页**是 `index.html`，包含各项目的可视化卡片（内嵌 B站演示视频 + 官网链接），另有独立的 `agent落地.html` 场景全景图。
 

@@ -44,12 +44,14 @@ const PROJECTS = [
     }
   },
   {
-    name: "项目3 名称",
-    description: "这里写项目介绍。",
-    // image: "assets/images/project3.png",
-    tags: ["标签A", "标签B"],
+    name: "LuxClaw — AI Agent 桌面应用",
+    description: "基于 Electron + React 的 AI Agent 桌面应用，集智能体对话与多媒体 AI 创作于一体。Agent 引擎支持多模型、工具系统、技能（Skills）、记忆、MCP、多级重试与上下文压缩、成本追踪；集成图像/视频/AI 试穿/语音克隆/字幕/翻译等多媒体生成能力与素材库，支持 RPA 一键发布抖音。内置 Playwright 浏览器自动化与 RPA。",
+    image: "",
+    video: "https://player.bilibili.com/player.html?bvid=BV1XSb56TEpy&page=1&high_quality=1",
+    tags: ["Electron", "React", "TypeScript", "Agent", "AI 多媒体", "Playwright", "RPA"],
     links: {
-      github: "https://github.com/你的用户名/项目3"
+      site: "",
+      video: "https://www.bilibili.com/video/BV1XSb56TEpy/"
     }
   },
   {
